@@ -6,6 +6,7 @@
 #include "seven_seg.h"
 #include "timer.h"
 #include "round_robin.h"
+#include "ethernet.h"
 
 uint32_t loop = 0xe000e100;
 
@@ -66,12 +67,15 @@ int main() {
     lcd_init();
     lcd_set_display_on_off(true, false, true);
     lcd_set_entry_mode(true, false);
-
+    
     seven_seg_init();
     seven_seg_blank();
     sleep_s(1);
     //seven_seg_show_hex(0x33);
     seven_seg_set_decimal_points(false, true);
+
+    // Setup MAC/PHY
+    init_mac();
 
     // NVIC Enables (3.4)
     if ((NVIC->isr_en0 & (1 << 19)) == 0) {

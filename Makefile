@@ -3,7 +3,7 @@ OBJCOPY = arm-none-eabi-objcopy
 TARGET = main
 
 # Source files
-SRCS = main.c lcd.c global.c vector_table.c mlib.c rtc.c seven_seg.c timer.c round_robin.c
+SRCS = main.c lcd.c global.c vector_table.c mlib.c rtc.c seven_seg.c timer.c round_robin.c ethernet.c
 
 # Flags
 CFLAGS_COMMON = -mcpu=cortex-m4 \

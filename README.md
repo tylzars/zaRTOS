@@ -15,8 +15,9 @@ Use `make` to make a `main.hex` that can be flashed with CodeGrip Studio.
 
 ~~- Implement systick~~
 
-- Make adding RR item
-  - Figure out context switch
-- systick iterrupt swaps between rr items
-- Shared data (semaphore)
-- 1st -> 7seg updates / 2nd -> lcd update
+~~- Make adding RR item~~
+~~  - Figure out context switch~~
+~~- systick iterrupt swaps between rr items~~
+- Shared data (semaphore/mutex) [stuck in atomic shenanigans]
+~~- 1st -> 7seg updates / 2nd -> lcd update~~
+- Add ethernet....
