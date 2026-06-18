@@ -4,10 +4,12 @@
 #include <stdint.h>
 #include "global.h"
 
-#define SYSCTL_RCGCEMAC (*(__IOM uint32_t*)0x400FE69C)
-#define SYSCTL_PREMAC (*(__IM uint32_t*)0x400FEA9C)
+#define SYSCTL_RCGCEMAC     (*(__IOM uint32_t*)0x400FE69C)
+#define SYSCTL_PREMAC       (*(__IM uint32_t*)0x400FEA9C)
+#define SYSCTL_RCGCEPHY     (*(__IOM uint32_t*)0x400FE630)
+#define SYSCTL_PREPHY       (*(__IM uint32_t*)0x400FEA30)
 
-#define EMACDMABUSMOD (*(__IOM uint32_t*)0x400ECC00)
+#define EMACDMABUSMOD       (*(__IOM uint32_t*)0x400ECC00)
 
 // Functionality
 void init_mac(void);
