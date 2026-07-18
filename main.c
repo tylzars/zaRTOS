@@ -75,7 +75,7 @@ int main() {
     seven_seg_set_decimal_points(false, true);
 
     // Setup MAC/PHY
-    init_mac();
+    //init_mac();
 
     // NVIC Enables (3.4)
     if ((NVIC->isr_en0 & (1 << 19)) == 0) {
