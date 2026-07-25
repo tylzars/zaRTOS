@@ -85,13 +85,13 @@ int main() {
 
     enable_timer(0);
 
-    // uint32_t tmp = spi_flash_init();
-    // char spi[10];
-    // m_memset(spi, 0, 10);
-    // m_sprintf(spi, "%x", tmp);
-    // disable_irqs();
-    // lcd_put_string(spi);
-    // enable_irqs();
+    uint32_t tmp = spi_flash_init();
+    char spi[10];
+    m_memset(spi, 0, 10);
+    m_sprintf(spi, "%x", tmp);
+    disable_irqs();
+    lcd_put_string(spi);
+    enable_irqs();
 
 
     // Tasks setup
