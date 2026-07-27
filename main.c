@@ -68,6 +68,14 @@ int main() {
     lcd_init();
     lcd_set_display_on_off(true, false, true);
     lcd_set_entry_mode(true, false);
+
+    // Attempt to disable flash to prevent 7seg commands going to it
+    // Did not work :(
+    // SET_BIT(SYSCTL_RCGCGPIO, LATCH_PORT_CLOCK_BIT);
+    // delay_us(200);
+    // SET_BIT(FLASH_LATCH_PORT_DEN, FLASH_PIN_LATCH);
+    // SET_BIT(FLASH_LATCH_PORT_DIR, FLASH_PIN_LATCH);
+    // SET_BIT(FLASH_LATCH_PORT_DATA, FLASH_PIN_LATCH);
     
     seven_seg_init();
     seven_seg_blank();

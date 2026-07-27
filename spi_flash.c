@@ -16,11 +16,11 @@ static void shift_out_byte(uint8_t data) {
             UNSET_BIT(FLASH_SPI_PORT_DATA, FLASH_SPI_MOSI);
         }
 
-        // Toggle CLK to get hardware to eat byte
-        delay_us(2);
+        // Toggle CLK to get hardware to eat byte   
         SET_BIT(FLASH_SPI_PORT_DATA, FLASH_SPI_SCK);
         delay_us(2);
         UNSET_BIT(FLASH_SPI_PORT_DATA, FLASH_SPI_SCK);
+        delay_us(2);
     }
 }
 
@@ -60,16 +60,11 @@ uint32_t spi_flash_init(void) {
     SET_BIT(FLASH_LATCH_PORT_DEN, FLASH_PIN_LATCH);
     SET_BIT(FLASH_LATCH_PORT_DIR, FLASH_PIN_LATCH);
 
+    delay_us(2);
 
     // Pull low to send bytes
     UNSET_BIT(FLASH_LATCH_PORT_DATA, FLASH_PIN_LATCH);
-
-    // while (true) {
-    //     UNSET_BIT(FLASH_LATCH_PORT_DATA, FLASH_PIN_LATCH);
-    //     sleep_s(5);
-    //     SET_BIT(FLASH_LATCH_PORT_DATA, FLASH_PIN_LATCH);
-    //     sleep_s(5);
-    // }
+    delay_us(2);
 
     // TX byte
     shift_out_byte(0x9F);
