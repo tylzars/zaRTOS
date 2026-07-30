@@ -18,8 +18,6 @@
 #define SPI_MOSI    (1 << 2)
 #define SPI_SCK     (1 << 0)
 
-#define SPI_PORT_CLOCK_BIT  (1 << 14)  // Port Q = bit 14
-
 /*
  * LATCH: Port H
  * Port H AHB base: 0x4005F000
@@ -30,8 +28,6 @@
 #define LATCH_PORT_DEN     (*(volatile uint32_t*)(LATCH_PORT_BASE + 0x51C))
 
 #define PIN_LATCH  (1 << 0)   // PH0
-
-#define LATCH_PORT_CLOCK_BIT  (1 << 7)  // Port H = bit 7
 
 /*
  * PWM: Port L
@@ -44,8 +40,6 @@
 #define PWM_PORT_DEN       (*(volatile uint32_t*)(PWM_PORT_BASE + 0x51C))
 
 #define PIN_PWM    (1 << 4)   // PL4
-
-#define PWM_PORT_CLOCK_BIT  (1 << 10)  // Port L = bit 10
 
 // Functionality
 void seven_seg_init(void);

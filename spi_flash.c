@@ -33,6 +33,9 @@ static uint8_t shift_in_byte(void) {
         SET_BIT(FLASH_SPI_PORT_DATA, FLASH_SPI_SCK);
         delay_us(2);
 
+        // Try SPI_XFER??
+        UNSET_BIT(FLASH_SPI_PORT_DATA, FLASH_SPI_MOSI);
+
         // Read bit of data and build out read data
         if (FLASH_SPI_PORT_DATA & FLASH_SPI_MISO) {
             read_byte = (read_byte << 1) | 1;
@@ -68,6 +71,8 @@ uint32_t spi_flash_init(void) {
 
     // TX byte
     shift_out_byte(0x9F);
+    SET_BIT(FLASH_SPI_PORT_DATA, FLASH_SPI_SCK);
+    UNSET_BIT(FLASH_SPI_PORT_DATA, FLASH_SPI_SCK);
 
     // RX bytes
     uint32_t tmp = 0;

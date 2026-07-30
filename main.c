@@ -64,15 +64,22 @@ int main() {
     enable_hibernation();
     enable_rtc();
 
+    // Enable GPIOs for SPI together
+    disable_irqs();
+    #define GPIO_Q  (1 << 14)
+    #define GPIO_H  (1 << 7)
+    #define GPIO_L  (1 << 10)
+    SET_BIT(SYSCTL_RCGCGPIO, GPIO_Q | GPIO_H | GPIO_L);
+    enable_irqs();
+    delay_us(500); 
+
+
     delay_ms(20);
     lcd_init();
     lcd_set_display_on_off(true, false, true);
     lcd_set_entry_mode(true, false);
 
-    // Attempt to disable flash to prevent 7seg commands going to it
-    // Did not work :(
-    // SET_BIT(SYSCTL_RCGCGPIO, LATCH_PORT_CLOCK_BIT);
-    // delay_us(200);
+    // Attempt to disable flash to prevent 7seg commands going to it (no dice)
     // SET_BIT(FLASH_LATCH_PORT_DEN, FLASH_PIN_LATCH);
     // SET_BIT(FLASH_LATCH_PORT_DIR, FLASH_PIN_LATCH);
     // SET_BIT(FLASH_LATCH_PORT_DATA, FLASH_PIN_LATCH);
@@ -83,9 +90,6 @@ int main() {
     //seven_seg_show_hex(0x33);
     seven_seg_set_decimal_points(false, true);
 
-    // Setup MAC/PHY
-    //init_mac();
-
     // NVIC Enables (3.4)
     if ((NVIC->isr_en0 & (1 << 19)) == 0) {
         SET_BIT(NVIC->isr_en0, TIMER0_ISR);    
@@ -93,6 +97,7 @@ int main() {
 
     enable_timer(0);
 
+    // SPI Flash Testing Code
     uint32_t tmp = spi_flash_init();
     char spi[10];
     m_memset(spi, 0, 10);

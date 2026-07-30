@@ -94,12 +94,6 @@ static void update_display(void) {
 }
 
 void seven_seg_init(void) {
-    // Enable required peripherals in chip (turn on the GPIOs)
-    disable_irqs();
-    SET_BIT(SYSCTL_RCGCGPIO, SPI_PORT_CLOCK_BIT | LATCH_PORT_CLOCK_BIT | PWM_PORT_CLOCK_BIT);
-    enable_irqs();
-    delay_us(500); 
-
     // Configure GPIO Q to default GPIO mode
     #define SPI_PORT_AFSEL  (*(volatile uint32_t *)(SPI_PORT_BASE + 0x420))
     disable_irqs();
