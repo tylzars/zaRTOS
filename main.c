@@ -70,6 +70,8 @@ int main() {
     #define GPIO_H  (1 << 7)
     #define GPIO_L  (1 << 10)
     SET_BIT(SYSCTL_RCGCGPIO, GPIO_Q | GPIO_H | GPIO_L);
+    #define SPI_PORT_AFSEL  (*(volatile uint32_t *)(SPI_PORT_BASE + 0x420))
+    UNSET_BIT(SPI_PORT_AFSEL, SPI_SCK | SPI_MOSI | FLASH_SPI_MISO);
     enable_irqs();
     delay_us(500); 
 
@@ -79,11 +81,16 @@ int main() {
     lcd_set_display_on_off(true, false, true);
     lcd_set_entry_mode(true, false);
 
-    // Attempt to disable flash to prevent 7seg commands going to it (no dice)
-    // SET_BIT(FLASH_LATCH_PORT_DEN, FLASH_PIN_LATCH);
-    // SET_BIT(FLASH_LATCH_PORT_DIR, FLASH_PIN_LATCH);
-    // SET_BIT(FLASH_LATCH_PORT_DATA, FLASH_PIN_LATCH);
-    
+    // SPI Flash Testing Code
+    uint32_t tmp = spi_flash_init();
+    char spi[10];
+    m_memset(spi, 0, 10);
+    m_sprintf(spi, "%x", tmp);
+    disable_irqs();
+    lcd_put_string(spi);
+    enable_irqs();
+    sleep_s(1000);
+
     seven_seg_init();
     seven_seg_blank();
     sleep_s(1);
@@ -96,16 +103,6 @@ int main() {
     }
 
     enable_timer(0);
-
-    // SPI Flash Testing Code
-    uint32_t tmp = spi_flash_init();
-    char spi[10];
-    m_memset(spi, 0, 10);
-    m_sprintf(spi, "%x", tmp);
-    disable_irqs();
-    lcd_put_string(spi);
-    enable_irqs();
-
 
     // Tasks setup
     create_task((void*)hexdumper);
