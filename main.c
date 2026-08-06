@@ -70,8 +70,14 @@ int main() {
     #define GPIO_H  (1 << 7)
     #define GPIO_L  (1 << 10)
     SET_BIT(SYSCTL_RCGCGPIO, GPIO_Q | GPIO_H | GPIO_L);
-    #define SPI_PORT_AFSEL  (*(volatile uint32_t *)(SPI_PORT_BASE + 0x420))
-    UNSET_BIT(SPI_PORT_AFSEL, SPI_SCK | SPI_MOSI | FLASH_SPI_MISO);
+    #define SPI_PORT_AFSEL  (*(volatile uint32_t *)(FLASH_SPI_PORT_BASE + 0x420))
+    UNSET_BIT(SPI_PORT_AFSEL, FLASH_SPI_SCK | FLASH_SPI_MOSI | FLASH_SPI_MISO);
+    #define FLASH_LATCH_PORT_AFSEL  (*(volatile uint32_t *)(FLASH_LATCH_PORT_BASE + 0x420))
+    UNSET_BIT(FLASH_LATCH_PORT_AFSEL, FLASH_PIN_LATCH);
+    // #define SPI_PORT_AMSEL   (*(volatile uint32_t *)(FLASH_SPI_PORT_BASE + 0x528))
+    // #define LATCH_PORT_AMSEL (*(volatile uint32_t *)(FLASH_LATCH_PORT_BASE + 0x528))
+    // UNSET_BIT(SPI_PORT_AMSEL, FLASH_SPI_SCK | FLASH_SPI_MOSI | FLASH_SPI_MISO);
+    // UNSET_BIT(LATCH_PORT_AMSEL, FLASH_PIN_LATCH);
     enable_irqs();
     delay_us(500); 
 
